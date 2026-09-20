@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cubelune</title>
+<meta name="description" content="Cubelune is a OneBlock skyblock Minecraft server for Java and Bedrock: minions, prestige ranks, Moonstones, crates and compacted gear. Join at play.cubelune.com.">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<meta property="og:title" content="Cubelune — OneBlock skyblock">
+<meta property="og:description" content="One block. Endless progression. Java and Bedrock, together.">
+<meta property="og:image" content="https://cubelune.com/assets/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0B1026; --navy-2:#121A3A; --cream:#F2EBD3; --teal:#7FE0D6; --violet:#8B7CF6; --gold:#F5C86B;
+    --text:#E9E7F5; --muted:#A9A6C4; --card:rgba(255,255,255,.04); --line:rgba(255,255,255,.10);
+  }
+  *{box-sizing:border-box} html{scroll-behavior:smooth}
+  body{margin:0;background:var(--navy);color:var(--text);font-family:Inter,system-ui,sans-serif;line-height:1.55;
+       background-image:radial-gradient(1200px 600px at 70% -10%,rgba(139,124,246,.25),transparent 60%),radial-gradient(800px 500px at 10% 20%,rgba(127,224,214,.12),transparent 60%)}
+  h1,h2,h3{font-family:"Space Grotesk",Inter,sans-serif;letter-spacing:-.01em;margin:0}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+  header{padding:18px 0;display:flex;align-items:center;justify-content:space-between;gap:16px}
+  .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--cream)}
+  .brand img{width:44px;height:44px;border-radius:10px}
+  .brand b{font-family:"Space Grotesk";font-size:22px;letter-spacing:.04em}
+  nav a{color:var(--muted);text-decoration:none;margin-left:18px;font-weight:500;font-size:15px}
+  nav a:hover{color:var(--teal)}
+  .hero{padding:56px 0 36px;display:grid;grid-template-columns:1.2fr .8fr;gap:32px;align-items:center}
+  .hero h1{font-size:clamp(38px,6vw,64px);line-height:1.02;color:var(--cream)}
+  .hero h1 span{color:var(--teal)}
+  .hero p.lead{font-size:18px;color:var(--muted);max-width:520px;margin:18px 0 26px}
+  .hero img{width:100%;max-width:360px;justify-self:center;filter:drop-shadow(0 20px 60px rgba(127,224,214,.25));border-radius:24px}
+  .join{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;display:grid;gap:12px}
+  .addr{display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--navy-2);border-radius:12px;padding:12px 14px;flex-wrap:wrap}
+  .addr .k{font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;font-weight:600}
+  .addr code{font-size:18px;color:var(--cream);font-weight:600;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+  .addr small{color:var(--muted)}
+  button.copy{background:var(--teal);color:#062421;border:0;border-radius:10px;padding:9px 14px;font-weight:700;cursor:pointer;font-family:Inter}
+  button.copy:hover{filter:brightness(1.08)}
+  .status{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--muted)}
+  .dot{width:10px;height:10px;border-radius:50%;background:#666;box-shadow:0 0 0 4px rgba(255,255,255,.06)}
+  .dot.on{background:#3DDC84;box-shadow:0 0 0 4px rgba(61,220,132,.18)}
+  .dot.off{background:#F26D6D}
+  .beta{display:inline-block;margin-top:8px;padding:6px 10px;border-radius:999px;background:rgba(245,200,107,.12);color:var(--gold);font-size:13px;font-weight:600}
+  section{padding:44px 0;border-top:1px solid var(--line)}
+  section h2{font-size:30px;color:var(--cream);margin-bottom:8px}
+  section p.sub{color:var(--muted);margin:0 0 24px;max-width:640px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px}
+  .card h3{font-size:18px;color:var(--cream);margin-bottom:8px;display:flex;align-items:center;gap:10px}
+  .card p{margin:0;color:var(--muted);font-size:15px}
+  .ic{width:28px;height:28px;border-radius:8px;display:inline-grid;place-items:center;background:rgba(127,224,214,.14);color:var(--teal);font-size:15px}
+  table{width:100%;border-collapse:collapse;font-size:15px}
+  th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line)}
+  th{color:var(--muted);font-weight:600;font-size:13px;text-transform:uppercase;letter-spacing:.06em}
+  td:first-child{color:var(--cream);font-weight:600}
+  .moon{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:8px;vertical-align:middle}
+  ol.steps{padding-left:20px;color:var(--muted);margin:0}
+  ol.steps li{margin:8px 0}
+  ol.steps b{color:var(--cream)}
+  footer{padding:32px 0 44px;color:var(--muted);font-size:13px;border-top:1px solid var(--line)}
+  footer p{margin:6px 0}
+  @media (max-width:760px){.hero{grid-template-columns:1fr;padding-top:24px}.hero img{max-width:220px;order:-1}nav{display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="brand" href="#"><img src="assets/logo.png" alt="Cubelune logo"><b>CUBELUNE</b></a>
+    <nav><a href="#join">Join</a><a href="#how">How it works</a><a href="#ranks">Ranks</a><a href="#rules">Rules</a></nav>
+  </header>
+
+  <div class="hero">
+    <div>
+      <h1>One block.<br><span>Endless</span> progression.</h1>
+      <p class="lead">Cubelune is a OneBlock skyblock server where your island grows from a single regenerating block. Minions farm while you're busy, prestige through the phases of the moon, and play together from PC and phone.</p>
+      <div class="join" id="join">
+        <div class="addr">
+          <div><div class="k">Java · PC &amp; Mac</div><code>play.cubelune.com</code></div>
+          <button class="copy" data-copy="play.cubelune.com">Copy</button>
+        </div>
+        <div class="addr">
+          <div><div class="k">Bedrock · phone, console, Windows</div><code>play.cubelune.com</code> <small>port <b>32374</b></small></div>
+          <button class="copy" data-copy="play.cubelune.com">Copy</button>
+        </div>
+        <div class="status"><span class="dot" id="dot"></span><span id="status">Checking server status…</span></div>
+        <span class="beta">Invite-only beta · Minecraft 26.2 · newer clients welcome</span>
+      </div>
+    </div>
+    <img src="assets/logo.png" alt="A cube glowing like a moon">
+  </div>
+
+  <section id="how">
+    <h2>How it works</h2>
+    <p class="sub">Everything on Cubelune loops back to the one block. Here's what's waiting once you spawn on your island.</p>
+    <div class="grid">
+      <div class="card"><h3><span class="ic">▣</span>The one block</h3><p>Break it and it comes back as something new. 20 phases from Plains to the Sulfur Caves, 15,500 blocks per full pass, with loot chests and mobs along the way.</p></div>
+      <div class="card"><h3><span class="ic">⚙</span>Minions</h3><p>Eight minion types farm, mine, fish and sell for you while you're online elsewhere. Fuel cells keep your island running after you log off. The Miner unlocks after your first full pass.</p></div>
+      <div class="card"><h3><span class="ic">☾</span>Prestige</h3><p>Finish a pass, reset your island, and climb the moon ranks: New Moon to Supermoon. Each rank adds minion slots, homes and a bigger fuel tank, plus a coin bonus every time.</p></div>
+      <div class="card"><h3><span class="ic">✦</span>Moonstones &amp; upgrades</h3><p>Burn 10,000 coins for a Moonstone and spend them on permanent island upgrades: sell boost, fuel efficiency, island size, co-op size. Upgrades survive prestige resets.</p></div>
+      <div class="card"><h3><span class="ic">⬢</span>Compacting &amp; gear</h3><p>Nine diamond blocks make a Super Diamond, nine of those a Mega, then Ultra. Same for netherite. Forge tier armor with real stat bonuses and full-set perks.</p></div>
+      <div class="card"><h3><span class="ic">◈</span>Crates &amp; enchants</h3><p>Stardust, Lunar and Nova crates in the hub, with keys from the one block, prestiges and Moonstones. Over a hundred custom enchantments at the Enchanter, bought with XP.</p></div>
+    </div>
+  </section>
+
+  <section id="ranks">
+    <h2>Moon ranks</h2>
+    <p class="sub">Ranks are earned, never bought. Every prestige moves you one step up the moon.</p>
+    <table>
+      <thead><tr><th>Rank</th><th>Prestige</th><th>Minion slots</th><th>Homes</th><th>Fuel tank</th></tr></thead>
+      <tbody>
+        <tr><td><i class="moon" style="background:#666"></i>New Moon</td><td>0</td><td>5</td><td>1</td><td>28 days</td></tr>
+        <tr><td><i class="moon" style="background:#ddd"></i>Crescent</td><td>1</td><td>8</td><td>1</td><td>28 days</td></tr>
+        <tr><td><i class="moon" style="background:#f5e37a"></i>Half Moon</td><td>2</td><td>10</td><td>2</td><td>28 days</td></tr>
+        <tr><td><i class="moon" style="background:#f5c86b"></i>Gibbous</td><td>3</td><td>12</td><td>2</td><td>35 days</td></tr>
+        <tr><td><i class="moon" style="background:#7fe0d6"></i>Full Moon</td><td>4</td><td>15</td><td>3</td><td>35 days</td></tr>
+        <tr><td><i class="moon" style="background:#f0a441"></i>Harvest Moon</td><td>5</td><td>18</td><td>3</td><td>35 days</td></tr>
+        <tr><td><i class="moon" style="background:#5b8cff"></i>Blue Moon</td><td>6</td><td>20</td><td>3</td><td>35 days</td></tr>
+        <tr><td><i class="moon" style="background:#c0392b"></i>Blood Moon</td><td>7</td><td>22</td><td>3</td><td>45 days</td></tr>
+        <tr><td><i class="moon" style="background:#8b7cf6"></i>Eclipse</td><td>8</td><td>25</td><td>5</td><td>45 days</td></tr>
+        <tr><td><i class="moon" style="background:#ff7be5"></i>Supermoon</td><td>10</td><td>25</td><td>5</td><td>60 days</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="start">
+    <h2>Getting started</h2>
+    <ol class="steps">
+      <li><b>Add the server</b> with the address above. On Bedrock, remember the port.</li>
+      <li><b>Spawn in the hub</b> and tap the OneBlock NPC, or type <code>/ob</code>. Your island is built in a few seconds.</li>
+      <li><b>Break the block.</b> Sell drops with <code>/shop</code> on your island, check your money and rank on the sidebar.</li>
+      <li><b>Automate</b> with minions from the shop, then <b>prestige</b> when the counter hits 15,500. <code>/spawn</code> always brings you back to the hub.</li>
+    </ol>
+  </section>
+
+  <section id="rules">
+    <h2>Rules</h2>
+    <div class="grid">
+      <div class="card"><h3>No cheating</h3><p>No hacked clients, macros or exploits. The server watches for it, and dupes are patched fast.</p></div>
+      <div class="card"><h3>Respect co-ops</h3><p>Islands are shared trust. Griefing or stealing from a co-op you were invited to gets you rolled back and removed.</p></div>
+      <div class="card"><h3>Keep chat clean</h3><p>Be decent to people. No spam, no ads, no slurs. Staff are marked with a tag and can help.</p></div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2026 Cubelune · play.cubelune.com</p>
+    <p>Not an official Minecraft product. Not approved by or associated with Mojang or Microsoft.</p>
+  </footer>
+</div>
+<script>
+  document.querySelectorAll('button.copy').forEach(b=>b.addEventListener('click',async()=>{try{await navigator.clipboard.writeText(b.dataset.copy);const t=b.textContent;b.textContent='Copied';setTimeout(()=>b.textContent=t,1400);}catch(e){}}));
+  (async()=>{
+    const dot=document.getElementById('dot'),s=document.getElementById('status');
+    const q=async u=>{try{const r=await fetch(u,{cache:'no-store'});return await r.json();}catch(e){return null;}};
+    const j=await q('https://api.mcstatus.io/v2/status/java/play.cubelune.com');
+    const b=await q('https://api.mcstatus.io/v2/status/bedrock/play.cubelune.com:32374');
+    const on=(j&&j.online)||(b&&b.online);
+    if(on){const n=(j&&j.players&&j.players.online)||0;dot.className='dot on';s.textContent=`Online · ${n} player${n===1?'':'s'} on right now`;}
+    else{dot.className='dot off';s.textContent='Server unreachable right now';}
+  })();
+</script>
+</body>
+</html>

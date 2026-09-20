@@ -36,6 +36,7 @@ document.querySelectorAll('button.copy').forEach(b=>b.addEventListener('click',a
       ['Sell boost','+'+d.sellBoost+'%'],
       ['Team',d.hasIsland?d.teamSize+(d.teamSize===1?' player':' players'):'no island'],
       ['Miner',d.minerUnlocked?'unlocked':'locked'],
+      ['Hours played',d.playHours!=null?d.playHours:'-'],
     ];
     $('meStats').innerHTML=cards.map(([k,v])=>`<div class="stat"><b>${esc(v)}</b><span>${k}</span></div>`).join('');
     const pct=Math.min(100,Math.round(100*d.lifetimeBlocks/Math.max(1,d.passLength)));

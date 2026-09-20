@@ -59,6 +59,20 @@
   .log{list-style:none;padding:0;margin:0}
   .log li{display:grid;grid-template-columns:110px 1fr;gap:12px;padding:10px 0;border-bottom:2px solid var(--paper-2)}
   .log time{font-family:"Pixelify Sans",monospace;font-size:17px;color:var(--muted)}
+  .panel{border:3px solid var(--ink);background:var(--paper-2);padding:16px 18px;margin:8px 0 14px}
+  .panel form{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end}
+  .panel label{display:grid;gap:4px;font-size:14px;font-weight:700}
+  .panel input{font:inherit;font-size:17px;padding:6px 8px;border:2px solid var(--ink);background:#fff;color:var(--ink);min-width:220px}
+  .btn{font:inherit;font-size:15px;font-weight:700;padding:7px 14px;border:2px solid var(--ink);background:var(--ink);color:var(--paper);cursor:pointer;box-shadow:3px 3px 0 var(--moon)}
+  .btn:hover{background:var(--night)} .btn.plain{background:transparent;color:var(--ink);box-shadow:none}
+  .code{font-family:"Pixelify Sans",monospace;font-size:34px;letter-spacing:.12em;background:var(--night);color:var(--moon);padding:6px 14px;display:inline-block;margin:6px 0}
+  .msg{margin:10px 0 0;font-size:15px} .msg.err{color:var(--bad);font-weight:700}
+  .stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin:10px 0 4px}
+  .stat{border:2px solid var(--ink);background:#fff;padding:8px 10px}
+  .stat b{display:block;font-family:"Pixelify Sans",monospace;font-size:22px;font-weight:600;line-height:1.1}
+  .stat span{font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+  .bar{height:14px;border:2px solid var(--ink);background:#fff;margin:6px 0 2px} .bar i{display:block;height:100%;background:var(--moon)}
+  [hidden]{display:none!important}
   footer{margin:56px 0 40px;padding-top:16px;border-top:3px dotted var(--ink);font-size:14px;color:var(--muted)}
   @media (max-width:560px){nav{width:100%;margin-top:6px} nav a{margin:0 14px 0 0} .row .lbl{width:100%} .copy{margin-left:0} .log li{grid-template-columns:1fr;gap:2px}}
 </style>
@@ -67,7 +81,7 @@
 <div class="page">
   <header>
     <a class="brand" href="#"><img src="assets/logo.png" alt="">Cubelune</a>
-    <nav><a href="#join">Join</a><a href="#ranks">Ranks</a><a href="#rules">Rules</a><a href="#notes">Notes</a><a href="#faq">FAQ</a></nav>
+    <nav><a href="#join">Join</a><a href="#stats">Stats</a><a href="#ranks">Ranks</a><a href="#rules">Rules</a><a href="#notes">Notes</a><a href="#faq">FAQ</a></nav>
   </header>
   <hr class="rule">
 
@@ -93,6 +107,26 @@
     <li><b>Compacting.</b> Nine diamond blocks make a Super Diamond, nine of those a Mega, then Ultra. Same for netherite. The tiers turn into armour with real stat bonuses and set perks.</li>
     <li><b>Enchants, crates, spawners.</b> Over a hundred custom enchants at the Enchanter, paid in XP. Stardust, Lunar and Nova crates in the hub. Spawners stack up to 50 in a single block, and which mobs you can buy depends on your rank.</li>
   </ul>
+
+  <h2 id="stats">Player stats</h2>
+  <p>Type a name and you get what the in-game sidebar shows for that player: rank, money, networth, island level, Moonstones, fuel and pass progress. Updated about once a minute. Bedrock names work with or without the dot.</p>
+  <div class="panel" id="lookup">
+    <form id="lookupForm">
+      <label>Minecraft name <input id="lookupName" autocomplete="off" maxlength="20" placeholder="K4rm4_01" required></label>
+      <button class="btn" type="submit">Show stats</button>
+    </form>
+    <p class="msg err" id="lookupErr" hidden></p>
+  </div>
+  <div class="panel" id="me" hidden>
+    <p style="margin:0 0 6px"><b id="meName"></b> <span id="meSub" style="color:var(--muted);font-size:14px"></span></p>
+    <div class="stats" id="meStats"></div>
+    <div id="mePass"></div>
+    <p class="msg"><button class="btn plain" id="lookupAgain" type="button">look up someone else</button></p>
+  </div>
+  <div id="top" hidden>
+    <p class="msg" style="margin:0 0 6px"><b>Top networth right now</b></p>
+    <table id="topTable"><thead><tr><th>#</th><th>Player</th><th>Networth</th><th>Island</th><th>Rank</th></tr></thead><tbody></tbody></table>
+  </div>
 
   <h2 id="ranks">Moon ranks</h2>
   <p>Ranks come from prestiging. You can't buy them. There is nothing for sale for real money at all right now.</p>

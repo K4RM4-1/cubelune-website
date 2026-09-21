@@ -9,72 +9,121 @@
 <meta property="og:title" content="Cubelune">
 <meta property="og:description" content="A small OneBlock server you can play from your phone.">
 <meta property="og:image" content="https://cubelune.com/assets/logo.png">
+<meta name="theme-color" content="#0B1026">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;600&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <style>
   :root{
-    --paper:#F4EEDF; --paper-2:#EAE2CC; --ink:#1E2140; --muted:#5B5F7A; --line:#1E2140;
-    --link:#2C4FCB; --moon:#E8B54D; --night:#1B1E3B; --night-text:#F4EEDF; --ok:#2E9E5B; --bad:#C84E3E;
+    --night:#0B1026; --night-2:#141A38; --panel:#171E42; --line:#2A3566;
+    --text:#E7E9F5; --dim:#9AA3C7; --moon:#E8B54D; --moonlight:#CBD6FF;
+    --ok:#4FD98A; --bad:#E0685A;
+    --stardust:#FFFFFF; --lunar:#7FE0D6; --nova:#F0A441;
   }
-  html{background:var(--paper)}
-  body{margin:0;color:var(--ink);font-family:"Atkinson Hyperlegible","Helvetica Neue",Arial,sans-serif;font-size:17px;line-height:1.6;
-       background:var(--paper) repeating-linear-gradient(0deg,transparent 0 31px,rgba(30,33,64,.045) 31px 32px)}
-  a{color:var(--link);text-decoration:underline;text-underline-offset:3px}
-  a:hover{color:var(--ink)}
+  *{box-sizing:border-box}
+  html{background:var(--night)}
+  body{
+    margin:0;color:var(--text);font-family:"Atkinson Hyperlegible","Helvetica Neue",Arial,sans-serif;font-size:17px;line-height:1.6;
+    background:
+      radial-gradient(1px 1px at 12% 8%, #fff 50%, transparent 50%),
+      radial-gradient(1px 1px at 78% 6%, #fff 50%, transparent 50%),
+      radial-gradient(1px 1px at 33% 18%, #cfd8ff 50%, transparent 50%),
+      radial-gradient(1px 1px at 62% 24%, #fff 50%, transparent 50%),
+      radial-gradient(1px 1px at 88% 30%, #cfd8ff 50%, transparent 50%),
+      radial-gradient(1px 1px at 22% 38%, #fff 50%, transparent 50%),
+      radial-gradient(1px 1px at 52% 46%, #cfd8ff 50%, transparent 50%),
+      radial-gradient(1px 1px at 8% 60%, #fff 50%, transparent 50%),
+      radial-gradient(1px 1px at 70% 66%, #fff 50%, transparent 50%),
+      radial-gradient(1px 1px at 40% 78%, #cfd8ff 50%, transparent 50%),
+      radial-gradient(1px 1px at 90% 84%, #fff 50%, transparent 50%),
+      radial-gradient(900px 500px at 82% -8%, rgba(232,181,77,.10), transparent 60%),
+      var(--night);
+    background-attachment:fixed;
+  }
+  a{color:var(--moonlight);text-decoration:underline;text-underline-offset:3px}
+  a:hover{color:var(--moon)}
   h1,h2,h3,.brand{font-family:"Pixelify Sans",monospace;font-weight:600;letter-spacing:.01em;line-height:1.1;margin:0}
-  .page{max-width:720px;margin:0 auto;padding:0 20px}
+  .page{max-width:760px;margin:0 auto;padding:0 20px}
   header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:22px 0 10px;flex-wrap:wrap}
-  .brand{display:flex;align-items:center;gap:12px;color:var(--ink);text-decoration:none;font-size:26px}
-  .brand img{width:40px;height:40px;border:3px solid var(--ink);background:var(--night);image-rendering:pixelated}
+  .brand{display:flex;align-items:center;gap:12px;color:var(--text);text-decoration:none;font-size:27px}
+  .brand img{width:42px;height:42px;border:2px solid var(--line);border-radius:50%;background:#000;image-rendering:pixelated}
   nav{font-size:15px}
-  nav a{margin-left:14px;color:var(--ink)}
-  .rule{border:0;border-top:3px dotted var(--ink);margin:14px 0 28px}
-  h1{font-size:clamp(34px,7vw,52px);margin:16px 0 14px}
-  h2{font-size:28px;margin:44px 0 12px}
-  h2::before{content:"";display:inline-block;width:12px;height:12px;background:var(--moon);margin-right:12px;vertical-align:baseline;box-shadow:4px -4px 0 var(--ink)}
+  nav a{margin-left:15px;color:var(--dim);text-decoration:none}
+  nav a:hover{color:var(--moon)}
+  .rule{border:0;height:1px;background:linear-gradient(90deg,var(--line),transparent);margin:14px 0 30px}
+  h1{font-size:clamp(32px,6.4vw,50px);margin:10px 0 16px;color:#fff}
+  h1 .accent{color:var(--moon)}
+  h2{font-size:27px;margin:46px 0 14px;color:#fff;display:flex;align-items:center;gap:12px}
   p{margin:0 0 14px}
-  .lead{font-size:19px}
-  .join{background:var(--night);color:var(--night-text);border:3px solid var(--ink);box-shadow:6px 6px 0 var(--ink);padding:18px 20px;margin:26px 0 12px}
-  .join h3{font-size:22px;margin-bottom:12px;color:var(--moon)}
-  .row{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin:6px 0}
-  .row .lbl{width:92px;color:#B8B6D2;font-size:14px;text-transform:uppercase;letter-spacing:.06em}
-  .row code{font-size:19px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:#fff;background:none;padding:0}
-  .row small{color:#B8B6D2}
-  .copy{margin-left:auto;background:transparent;color:var(--night-text);border:2px solid var(--night-text);padding:4px 10px;font:inherit;font-size:14px;cursor:pointer}
-  .copy:hover{background:var(--night-text);color:var(--night)}
-  .status{display:flex;align-items:center;gap:9px;margin-top:12px;font-size:15px;color:#B8B6D2}
-  .dot{width:12px;height:12px;background:#777;border:2px solid var(--night-text)}
-  .dot.on{background:var(--ok)} .dot.off{background:var(--bad)}
-  .note{display:inline-block;background:var(--moon);color:var(--ink);border:2px solid var(--ink);padding:6px 10px;font-size:15px;transform:rotate(-1deg);margin:8px 0 0}
-  ul.plain{padding-left:22px;margin:0 0 14px}
-  ul.plain li{margin:0 0 10px}
-  ul.plain b{font-weight:700}
-  code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--paper-2);padding:1px 5px;font-size:.95em}
-  table{width:100%;border-collapse:collapse;font-size:15px;margin:8px 0 14px;background:var(--paper-2)}
-  th,td{text-align:left;padding:8px 10px;border:2px solid var(--ink)}
-  th{font-family:"Pixelify Sans",monospace;font-weight:600;font-size:16px}
-  .moon{display:inline-block;width:11px;height:11px;border:2px solid var(--ink);margin-right:8px;vertical-align:-1px}
-  dl{margin:0} dt{font-weight:700;margin-top:14px} dd{margin:2px 0 0}
+  .lead{font-size:19px;color:#DDE2F5}
+  .sub{color:var(--dim)}
+
+  /* moon phase marker, also used in the rank table */
+  .phase{display:inline-block;width:15px;height:15px;border-radius:50%;background:var(--moonlight);position:relative;overflow:hidden;flex:none;box-shadow:0 0 10px rgba(203,214,255,.25)}
+  .phase::after{content:"";position:absolute;top:-2px;bottom:-2px;left:0;right:0;border-radius:50%;background:var(--night);transform:translateX(var(--cover,0))}
+  .p0::after{--cover:0}      /* new    */
+  .p1::after{--cover:28%}
+  .p2::after{--cover:50%}
+  .p3::after{--cover:72%}
+  .p4::after{--cover:105%}   /* full   */
+  .t14{width:14px;height:14px;margin-right:9px;vertical-align:-2px}
+
+  .join{background:linear-gradient(180deg,var(--panel),var(--night-2));border:1px solid var(--line);border-radius:14px;padding:20px;margin:26px 0 12px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+  .join h3{font-size:21px;margin-bottom:14px;color:var(--moon)}
+  .row{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin:8px 0}
+  .row .lbl{width:92px;color:var(--dim);font-size:13px;text-transform:uppercase;letter-spacing:.09em}
+  .row code{font-size:19px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:#fff;background:none;padding:0;border:0}
+  .row small{color:var(--dim)}
+  .copy{margin-left:auto;background:transparent;color:var(--moonlight);border:1px solid var(--line);border-radius:8px;padding:5px 11px;font:inherit;font-size:14px;cursor:pointer}
+  .copy:hover{border-color:var(--moon);color:var(--moon)}
+  .status{display:flex;align-items:center;gap:9px;margin-top:14px;font-size:15px;color:var(--dim)}
+  .dot{width:9px;height:9px;border-radius:50%;background:#555;box-shadow:0 0 0 3px rgba(255,255,255,.05)}
+  .dot.on{background:var(--ok);box-shadow:0 0 0 3px rgba(79,217,138,.15)}
+  .dot.off{background:var(--bad);box-shadow:0 0 0 3px rgba(224,104,90,.15)}
+  .note{display:inline-block;background:rgba(232,181,77,.12);border:1px solid rgba(232,181,77,.35);color:var(--moon);border-radius:10px;padding:7px 12px;font-size:15px}
+
+  ul.plain{padding-left:20px;margin:0 0 14px}
+  ul.plain li{margin:0 0 11px;color:#D8DCEF}
+  ul.plain b{color:#fff}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-size:.92em;color:var(--moonlight)}
+  table{width:100%;border-collapse:collapse;font-size:15px;margin:10px 0 14px}
+  th,td{text-align:left;padding:9px 11px;border-bottom:1px solid var(--line)}
+  th{font-family:"Pixelify Sans",monospace;font-weight:600;font-size:15px;color:var(--dim);text-transform:uppercase;letter-spacing:.05em}
+  tbody tr:hover{background:rgba(255,255,255,.03)}
+  td:first-child{color:#fff;white-space:nowrap}
+  dl{margin:0} dt{font-weight:700;margin-top:16px;color:#fff} dd{margin:3px 0 0;color:#D8DCEF}
   .log{list-style:none;padding:0;margin:0}
-  .log li{display:grid;grid-template-columns:110px 1fr;gap:12px;padding:10px 0;border-bottom:2px solid var(--paper-2)}
-  .log time{font-family:"Pixelify Sans",monospace;font-size:17px;color:var(--muted)}
-  .panel{border:3px solid var(--ink);background:var(--paper-2);padding:16px 18px;margin:8px 0 14px}
+  .log li{display:grid;grid-template-columns:118px 1fr;gap:14px;padding:12px 0;border-bottom:1px solid var(--line);color:#D8DCEF}
+  .log time{font-family:"Pixelify Sans",monospace;font-size:16px;color:var(--moon)}
+
+  .panel{border:1px solid var(--line);background:var(--night-2);border-radius:14px;padding:18px 20px;margin:10px 0 14px}
   .panel form{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end}
-  .panel label{display:grid;gap:4px;font-size:14px;font-weight:700}
-  .panel input{font:inherit;font-size:17px;padding:6px 8px;border:2px solid var(--ink);background:#fff;color:var(--ink);min-width:220px}
-  .btn{font:inherit;font-size:15px;font-weight:700;padding:7px 14px;border:2px solid var(--ink);background:var(--ink);color:var(--paper);cursor:pointer;box-shadow:3px 3px 0 var(--moon)}
-  .btn:hover{background:var(--night)} .btn.plain{background:transparent;color:var(--ink);box-shadow:none}
-  .code{font-family:"Pixelify Sans",monospace;font-size:34px;letter-spacing:.12em;background:var(--night);color:var(--moon);padding:6px 14px;display:inline-block;margin:6px 0}
-  .msg{margin:10px 0 0;font-size:15px} .msg.err{color:var(--bad);font-weight:700}
-  .stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin:10px 0 4px}
-  .stat{border:2px solid var(--ink);background:#fff;padding:8px 10px}
-  .stat b{display:block;font-family:"Pixelify Sans",monospace;font-size:22px;font-weight:600;line-height:1.1}
-  .stat span{font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
-  .bar{height:14px;border:2px solid var(--ink);background:#fff;margin:6px 0 2px} .bar i{display:block;height:100%;background:var(--moon)}
+  .panel label{display:grid;gap:5px;font-size:13px;color:var(--dim);text-transform:uppercase;letter-spacing:.08em}
+  .panel input{font:inherit;font-size:17px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:#0E1430;color:#fff;min-width:230px}
+  .panel input:focus{outline:none;border-color:var(--moon)}
+  .btn{font:inherit;font-size:15px;font-weight:700;padding:9px 16px;border:1px solid var(--moon);border-radius:8px;background:var(--moon);color:#20180A;cursor:pointer}
+  .btn:hover{filter:brightness(1.08)}
+  .btn.plain{background:transparent;color:var(--dim);border-color:var(--line)}
+  .btn.plain:hover{color:var(--moon);border-color:var(--moon)}
+  .msg{margin:10px 0 0;font-size:15px;color:var(--dim)} .msg.err{color:var(--bad)}
+  .stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:10px;margin:14px 0 4px}
+  .stat{border:1px solid var(--line);background:#0E1430;border-radius:10px;padding:10px 12px}
+  .stat b{display:block;font-family:"Pixelify Sans",monospace;font-size:21px;font-weight:600;line-height:1.15;color:#fff}
+  .stat span{font-size:12px;color:var(--dim);text-transform:uppercase;letter-spacing:.06em}
+  .bar{height:10px;border:1px solid var(--line);border-radius:6px;background:#0E1430;margin:8px 0 2px;overflow:hidden}
+  .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--moon),var(--moonlight))}
+  .keys{display:flex;gap:10px;flex-wrap:wrap;margin:6px 0 14px}
+  .key{border:1px solid var(--line);border-radius:10px;padding:9px 13px;font-size:14px;background:var(--night-2);color:var(--dim)}
+  .key b{display:block;font-family:"Pixelify Sans",monospace;font-size:16px}
+  .key.s b{color:var(--stardust)} .key.l b{color:var(--lunar)} .key.n b{color:var(--nova)}
+  footer{margin:58px 0 44px;padding-top:18px;border-top:1px solid var(--line);font-size:14px;color:var(--dim)}
   [hidden]{display:none!important}
-  footer{margin:56px 0 40px;padding-top:16px;border-top:3px dotted var(--ink);font-size:14px;color:var(--muted)}
-  @media (max-width:560px){nav{width:100%;margin-top:6px} nav a{margin:0 14px 0 0} .row .lbl{width:100%} .copy{margin-left:0} .log li{grid-template-columns:1fr;gap:2px}}
+  @media (max-width:560px){
+    nav{width:100%;margin-top:6px} nav a{margin:0 16px 0 0}
+    .row .lbl{width:100%} .copy{margin-left:0}
+    .log li{grid-template-columns:1fr;gap:3px}
+    h2{font-size:24px}
+  }
 </style>
 </head>
 <body>
@@ -85,9 +134,9 @@
   </header>
   <hr class="rule">
 
-  <h1>A OneBlock server you can play from your phone.</h1>
-  <p class="lead">Cubelune is a small Minecraft server. You start on one block floating in the sky, break it, and it comes back as something else. Your island grows out of that. Minions keep working on it while you're off doing something else, and Java and Bedrock players share the same world.</p>
-  <p>It runs on a machine at home, so it restarts now and then when things get added. You get a warning in chat first.</p>
+  <h1>One block under a <span class="accent">whole moon</span>.</h1>
+  <p class="lead">Cubelune is a small Minecraft server. You start on one block floating in the sky, break it, and it comes back as something else. Your island grows out of that. Minions keep working while you're off doing something else, and Java and Bedrock players share the same world.</p>
+  <p class="sub">It runs on a machine at home, so it restarts now and then when things get added. You get a warning in chat first.</p>
 
   <div class="join" id="join">
     <h3>How to join</h3>
@@ -97,19 +146,19 @@
   </div>
   <span class="note">Whitelist is on while things are being tested. Ask Iso for a spot.</span>
 
-  <h2 id="what">What you actually do</h2>
+  <h2 id="what"><span class="phase p1"></span>What you actually do</h2>
   <ul class="plain">
     <li><b>Break the block.</b> Dirt, logs, ores, chests, the odd mob. Twenty phases, from Plains all the way down to the Sulfur Caves. The first full pass is 15,500 blocks.</li>
     <li><b>Sell and buy.</b> <code>/shop</code> on your island. Coins buy minions, spawners and gear.</li>
     <li><b>Minions.</b> Miner, Farmer, Lumberjack, Fisher, Slayer, Collector, Feeder, Seller. They run while you're online anywhere on the server. To keep them going after you log off you need fuel cells, which come from prestiges, the block itself, crates or Moonstones. The Miner stays locked until you've done one full pass yourself, otherwise it would play the game for you.</li>
     <li><b>Prestige.</b> When the pass counter fills, reset the island and go up one moon rank. Each pass is 20% longer than the last, and you can prestige once a day.</li>
     <li><b>Moonstones.</b> 10,000 coins become one Moonstone, one way only. They buy permanent island upgrades: sell boost, bigger fuel tank, larger island, bigger team. Those survive resets.</li>
-    <li><b>Compacting.</b> Nine diamond blocks make a Super Diamond, nine of those a Mega, then Ultra. Same for netherite. The tiers turn into armour with real stat bonuses and set perks.</li>
-    <li><b>Enchants, crates, spawners.</b> Over a hundred custom enchants at the Enchanter, paid in XP. Stardust, Lunar and Nova crates in the hub. Spawners stack up to 50 in a single block, and which mobs you can buy depends on your rank.</li>
+    <li><b>Compacting.</b> Nine diamond blocks make a Super Diamond, nine of those a Mega, then Ultra. Same for netherite. The tiers turn into armour with real stat bonuses and set perks, and above them sits Prismatic.</li>
+    <li><b>Enchants, crates, cosmetics.</b> Over a hundred custom enchants at the Enchanter, paid in XP. Three crates in the hub. Wings, pets, mounts and trails in <code>/cosmetics</code>.</li>
   </ul>
 
-  <h2 id="stats">Player stats</h2>
-  <p>Type a name and you get what the in-game sidebar shows for that player: rank, money, networth, island level, Moonstones, fuel and pass progress. Updated about once a minute. Bedrock names work with or without the dot.</p>
+  <h2 id="stats"><span class="phase p2"></span>Player stats</h2>
+  <p class="sub">Type a name and you get what the in-game sidebar shows for that player: rank, money, networth, island level, Moonstones, fuel and pass progress. Updated about once a minute. Bedrock names work with or without the dot.</p>
   <div class="panel" id="lookup">
     <form id="lookupForm">
       <label>Minecraft name <input id="lookupName" autocomplete="off" maxlength="20" placeholder="K4rm4_01" required></label>
@@ -118,48 +167,57 @@
     <p class="msg err" id="lookupErr" hidden></p>
   </div>
   <div class="panel" id="me" hidden>
-    <p style="margin:0 0 6px"><b id="meName"></b> <span id="meSub" style="color:var(--muted);font-size:14px"></span></p>
+    <p style="margin:0"><b id="meName" style="font-family:'Pixelify Sans',monospace;font-size:21px"></b> <span id="meSub" style="color:var(--dim);font-size:14px"></span></p>
     <div class="stats" id="meStats"></div>
     <div id="mePass"></div>
     <p class="msg"><button class="btn plain" id="lookupAgain" type="button">look up someone else</button></p>
   </div>
   <div id="top" hidden>
-    <p class="msg" style="margin:0 0 6px"><b>Top networth right now</b></p>
+    <p class="msg" style="margin:18px 0 0"><b style="color:#fff">Top networth right now</b></p>
     <table id="topTable"><thead><tr><th>#</th><th>Player</th><th>Networth</th><th>Island</th><th>Rank</th></tr></thead><tbody></tbody></table>
   </div>
 
-  <h2 id="ranks">Moon ranks</h2>
-  <p>Ranks come from prestiging. You can't buy them. There is nothing for sale for real money at all right now.</p>
+  <h2 id="ranks"><span class="phase p3"></span>Moon ranks</h2>
+  <p class="sub">Ranks come from prestiging. You can't buy them. There is nothing for sale for real money at all right now.</p>
   <table>
     <thead><tr><th>Rank</th><th>Prestige</th><th>Minions</th><th>Homes</th><th>Fuel tank</th></tr></thead>
     <tbody>
-      <tr><td><i class="moon" style="background:#777"></i>New Moon</td><td>0</td><td>5</td><td>1</td><td>28 days</td></tr>
-      <tr><td><i class="moon" style="background:#ddd"></i>Crescent</td><td>1</td><td>8</td><td>1</td><td>28 days</td></tr>
-      <tr><td><i class="moon" style="background:#f5e37a"></i>Half Moon</td><td>2</td><td>10</td><td>2</td><td>28 days</td></tr>
-      <tr><td><i class="moon" style="background:#E8B54D"></i>Gibbous</td><td>3</td><td>12</td><td>2</td><td>35 days</td></tr>
-      <tr><td><i class="moon" style="background:#7fe0d6"></i>Full Moon</td><td>4</td><td>15</td><td>3</td><td>35 days</td></tr>
-      <tr><td><i class="moon" style="background:#f0a441"></i>Harvest Moon</td><td>5</td><td>18</td><td>3</td><td>35 days</td></tr>
-      <tr><td><i class="moon" style="background:#5b8cff"></i>Blue Moon</td><td>6</td><td>20</td><td>3</td><td>35 days</td></tr>
-      <tr><td><i class="moon" style="background:#c0392b"></i>Blood Moon</td><td>7</td><td>22</td><td>3</td><td>45 days</td></tr>
-      <tr><td><i class="moon" style="background:#8b7cf6"></i>Eclipse</td><td>8</td><td>25</td><td>5</td><td>45 days</td></tr>
-      <tr><td><i class="moon" style="background:#ff7be5"></i>Supermoon</td><td>10</td><td>25</td><td>5</td><td>60 days</td></tr>
+      <tr><td><i class="phase p0 t14"></i>New Moon</td><td>0</td><td>5</td><td>1</td><td>28 days</td></tr>
+      <tr><td><i class="phase p1 t14"></i>Crescent</td><td>1</td><td>8</td><td>1</td><td>28 days</td></tr>
+      <tr><td><i class="phase p2 t14"></i>Half Moon</td><td>2</td><td>10</td><td>2</td><td>28 days</td></tr>
+      <tr><td><i class="phase p3 t14"></i>Gibbous</td><td>3</td><td>12</td><td>2</td><td>35 days</td></tr>
+      <tr><td><i class="phase p4 t14"></i>Full Moon</td><td>4</td><td>15</td><td>3</td><td>35 days</td></tr>
+      <tr><td><i class="phase p4 t14" style="background:#F0A441"></i>Harvest Moon</td><td>5</td><td>18</td><td>3</td><td>35 days</td></tr>
+      <tr><td><i class="phase p4 t14" style="background:#5B8CFF"></i>Blue Moon</td><td>6</td><td>20</td><td>3</td><td>35 days</td></tr>
+      <tr><td><i class="phase p4 t14" style="background:#C0392B"></i>Blood Moon</td><td>7</td><td>22</td><td>3</td><td>45 days</td></tr>
+      <tr><td><i class="phase p1 t14" style="background:#8B7CF6"></i>Eclipse</td><td>8</td><td>25</td><td>5</td><td>45 days</td></tr>
+      <tr><td><i class="phase p4 t14" style="background:#FF7BE5"></i>Supermoon</td><td>10</td><td>25</td><td>5</td><td>60 days</td></tr>
     </tbody>
   </table>
 
-  <h2 id="rules">Rules</h2>
+  <h2 id="crates"><span class="phase p4"></span>Crates</h2>
+  <p class="sub">Keys drop from the one block, from prestiging, or you buy them with Moonstones. The crates stand in the hub.</p>
+  <div class="keys">
+    <span class="key s"><b>Stardust</b>coins, fuel, enchant books</span>
+    <span class="key l"><b>Lunar</b>rarer books, cosmetics</span>
+    <span class="key n"><b>Nova</b>heroic books, wings</span>
+  </div>
+
+  <h2 id="rules"><span class="phase p2"></span>Rules</h2>
   <ul class="plain">
-    <li><b>No cheating.</b> No hacked clients, macros or dupes. There's an anti-cheat and every block is logged, so it's not worth it.</li>
+    <li><b>No cheating.</b> No hacked clients, macros or dupes. Every block is logged, so griefing can always be rolled back.</li>
     <li><b>Don't wreck islands you were invited to.</b> Griefing a co-op gets rolled back and you get removed.</li>
     <li><b>Be decent in chat.</b> No spam, no ads, no slurs. Staff have a tag next to their name. Anyone without one claiming to be staff isn't.</li>
   </ul>
 
-  <h2 id="notes">Notes</h2>
+  <h2 id="notes"><span class="phase p1"></span>Notes</h2>
   <ul class="log">
-    <li><time>20 Sep 2026</time><span>Moon ranks, Moonstones and island upgrades, block compacting with tiered armour, custom enchants, crates, spawner stacking. New hub. Anti-cheat, chat filter and block logging switched on. The one block now heals itself if it ever goes missing.</span></li>
+    <li><time>21 Sep 2026</time><span>Prismatic tier above Ultra Netherite, with its own tools and armour. Smelting Touch on every pickaxe. Cosmetics: wings, pets, mounts and trails. A guide book on <code>/help</code>.</span></li>
+    <li><time>20 Sep 2026</time><span>Moon ranks, Moonstones and island upgrades, block compacting with tiered armour, custom enchants, crates, spawner stacking. New hub. Chat filter and block logging switched on.</span></li>
     <li><time>19 Sep 2026</time><span>Server opened for testing. Java and Bedrock cross-play working, minions in, first island built.</span></li>
   </ul>
 
-  <h2 id="faq">FAQ</h2>
+  <h2 id="faq"><span class="phase p0"></span>FAQ</h2>
   <dl>
     <dt>Is it pay to win?</dt>
     <dd>No. Nothing is for sale. If that ever changes it will be cosmetics or convenience, and it will be written here first.</dd>
@@ -179,6 +237,6 @@
     <p>Cubelune is run by one person as a hobby. Not an official Minecraft product, not approved by or associated with Mojang or Microsoft.</p>
   </footer>
 </div>
-<script src="assets/app.js?v=4" defer></script>
+<script src="assets/app.js?v=5" defer></script>
 </body>
 </html>

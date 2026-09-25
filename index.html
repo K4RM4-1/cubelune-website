@@ -7,8 +7,12 @@
 <meta name="description" content="Cubelune is a small OneBlock Minecraft server for Java and Bedrock. One block, minions, moon ranks. Join at play.cubelune.com.">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <meta property="og:title" content="Cubelune">
-<meta property="og:description" content="A small OneBlock server you can play from your phone.">
+<meta property="og:description" content="A small OneBlock Minecraft server for Java and Bedrock. One block, minions, moon ranks. Join at play.cubelune.com.">
 <meta property="og:image" content="https://cubelune.com/assets/logo.png">
+<meta property="og:url" content="https://cubelune.com/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<link rel="canonical" href="https://cubelune.com/">
 <meta name="theme-color" content="#0B1026">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -92,6 +96,7 @@
   tbody tr:hover{background:rgba(255,255,255,.03)}
   td:first-child{color:#fff;white-space:nowrap}
   dl{margin:0} dt{font-weight:700;margin-top:16px;color:#fff} dd{margin:3px 0 0;color:#D8DCEF}
+  .tablewrap{overflow-x:auto;margin:10px 0 14px} .tablewrap table{margin:0}
   .log{list-style:none;padding:0;margin:0}
   .log li{display:grid;grid-template-columns:118px 1fr;gap:14px;padding:12px 0;border-bottom:1px solid var(--line);color:#D8DCEF}
   .log time{font-family:"Pixelify Sans",monospace;font-size:16px;color:var(--moon)}
@@ -140,8 +145,8 @@
 
   <div class="join" id="join">
     <h3>How to join</h3>
-    <div class="row"><span class="lbl">Java</span><code>play.cubelune.com</code><button class="copy" data-copy="play.cubelune.com">copy</button></div>
-    <div class="row"><span class="lbl">Bedrock</span><code>play.cubelune.com</code><small>port 32374</small><button class="copy" data-copy="play.cubelune.com">copy</button></div>
+    <div class="row"><span class="lbl">Java</span><code>play.cubelune.com</code><button class="copy" data-copy="play.cubelune.com" aria-label="Copy the Java address">copy</button></div>
+    <div class="row"><span class="lbl">Bedrock</span><code>play.cubelune.com</code><small>port 32374</small><button class="copy" data-copy="play.cubelune.com" aria-label="Copy the Bedrock address">copy</button></div>
     <div class="status"><span class="dot" id="dot"></span><span id="status">Checking if the server is up…</span></div>
   </div>
   <span class="note">Whitelist is on while things are being tested. Ask Iso for a spot.</span>
@@ -152,13 +157,15 @@
     <li><b>Sell and buy.</b> <code>/shop</code> on your island. Coins buy minions, spawners and gear.</li>
     <li><b>Minions.</b> Miner, Farmer, Lumberjack, Fisher, Slayer, Collector, Feeder, Seller. They run while you're online anywhere on the server. To keep them going after you log off you need fuel cells, which come from prestiges, the block itself, crates or Moonstones. The Miner stays locked until you've done one full pass yourself, otherwise it would play the game for you.</li>
     <li><b>Prestige.</b> When the pass counter fills, reset the island and go up one moon rank. Each pass is 20% longer than the last, and you can prestige once a day.</li>
-    <li><b>Moonstones.</b> 10,000 coins become one Moonstone, one way only. They buy permanent island upgrades: sell boost, bigger fuel tank, larger island, bigger team. Those survive resets.</li>
-    <li><b>Compacting.</b> Nine diamond blocks make a Super Diamond, nine of those a Mega, then Ultra. Same for netherite. The tiers turn into armour with real stat bonuses and set perks, and above them sits Prismatic.</li>
-    <li><b>Enchants, crates, cosmetics.</b> Over a hundred custom enchants at the Enchanter, paid in XP. Three crates in the hub. Wings, pets, mounts and trails in <code>/cosmetics</code>.</li>
+    <li><b>Moonstones.</b> 10,000 coins become one Moonstone, one way only. <code>/moonstones</code> turns them into crate keys, fuel cells and permanent island upgrades: Sell Boost, Fuel Tank, Fuel Efficiency, Island Size and Co-op Size. Upgrades survive resets.</li>
+    <li><b>Compacting.</b> Nine diamond blocks make a Super Diamond, nine of those a Mega, then Ultra. Same for netherite. The tiers turn into armor with real stat bonuses and set perks. Compacted blocks can't be placed; right-click one to split it back.</li>
+    <li><b>Prismatic.</b> The tier above Ultra Netherite. Breaking the one block by hand can drop a Prismatic Shard, about one in 250,000 (minions never find one). In <code>/prismatic</code>, Ultra Netherite plus one shard makes a piece of armor or a tool, once you have 200 hours on the server. Nine shards make a Prismatic Block you can place, worth about 250 island levels.</li>
+    <li><b>Tools that help.</b> Every pickaxe smelts the ores it mines, and whatever a pickaxe, axe, shovel or hoe breaks goes straight into your inventory.</li>
+    <li><b>Enchants, crates, cosmetics.</b> Over a hundred custom enchants at the Enchanter, paid in XP. Three crates in the hub. Pets, mounts, morphs, particle effects, gadgets and more in <code>/cosmetics</code>, paid for with Cosmetic Tokens from the crates.</li>
   </ul>
 
   <h2 id="stats"><span class="phase p2"></span>Player stats</h2>
-  <p class="sub">Type a name and you get what the in-game sidebar shows for that player: rank, money, networth, island level, Moonstones, fuel and pass progress. Updated about once a minute. Bedrock names work with or without the dot.</p>
+  <p class="sub">Type a name and you get what the in-game sidebar shows for that player: rank, coins, networth, island level, Moonstones, fuel, hours played and pass progress. Updated about once a minute. Bedrock names work with or without the dot.</p>
   <div class="panel" id="lookup">
     <form id="lookupForm">
       <label>Minecraft name <input id="lookupName" autocomplete="off" maxlength="20" placeholder="K4rm4_01" required></label>
@@ -174,12 +181,12 @@
   </div>
   <div id="top" hidden>
     <p class="msg" style="margin:18px 0 0"><b style="color:#fff">Top networth right now</b></p>
-    <table id="topTable"><thead><tr><th>#</th><th>Player</th><th>Networth</th><th>Island</th><th>Rank</th></tr></thead><tbody></tbody></table>
+    <div class="tablewrap"><table id="topTable"><thead><tr><th>#</th><th>Player</th><th>Networth</th><th>Island level</th><th>Rank</th></tr></thead><tbody></tbody></table></div>
   </div>
 
   <h2 id="ranks"><span class="phase p3"></span>Moon ranks</h2>
   <p class="sub">Ranks come from prestiging. You can't buy them. There is nothing for sale for real money at all right now.</p>
-  <table>
+  <div class="tablewrap"><table>
     <thead><tr><th>Rank</th><th>Prestige</th><th>Minions</th><th>Homes</th><th>Fuel tank</th></tr></thead>
     <tbody>
       <tr><td><i class="phase p0 t14"></i>New Moon</td><td>0</td><td>5</td><td>1</td><td>28 days</td></tr>
@@ -193,14 +200,14 @@
       <tr><td><i class="phase p1 t14" style="background:#8B7CF6"></i>Eclipse</td><td>8</td><td>25</td><td>5</td><td>45 days</td></tr>
       <tr><td><i class="phase p4 t14" style="background:#FF7BE5"></i>Supermoon</td><td>10</td><td>25</td><td>5</td><td>60 days</td></tr>
     </tbody>
-  </table>
+  </table></div>
 
   <h2 id="crates"><span class="phase p4"></span>Crates</h2>
   <p class="sub">Keys drop from the one block, from prestiging, or you buy them with Moonstones. The crates stand in the hub.</p>
   <div class="keys">
     <span class="key s"><b>Stardust</b>coins, fuel, enchant books</span>
-    <span class="key l"><b>Lunar</b>rarer books, cosmetics</span>
-    <span class="key n"><b>Nova</b>heroic books, wings</span>
+    <span class="key l"><b>Lunar</b>rarer books, Cosmetic Tokens</span>
+    <span class="key n"><b>Nova</b>heroic books, rare cosmetics</span>
   </div>
 
   <h2 id="rules"><span class="phase p2"></span>Rules</h2>
@@ -212,7 +219,8 @@
 
   <h2 id="notes"><span class="phase p1"></span>Notes</h2>
   <ul class="log">
-    <li><time>21 Sep 2026</time><span>Prismatic tier above Ultra Netherite, with its own tools and armour. Smelting Touch on every pickaxe. Cosmetics: wings, pets, mounts and trails. A guide book on <code>/help</code>.</span></li>
+    <li><time>25 Sep 2026</time><span>Polish pass. Prismatic is now just two things, the shard and the block, and gear is made in <code>/prismatic</code>. Every digging tool puts drops straight into your inventory. The guide book, command hints and chat prefixes got cleaned up.</span></li>
+    <li><time>21 Sep 2026</time><span>Prismatic tier above Ultra Netherite, with its own tools and armor. Smelting Touch on every pickaxe. Cosmetics: pets, mounts, morphs and particle effects. A guide book on <code>/help</code>.</span></li>
     <li><time>20 Sep 2026</time><span>Moon ranks, Moonstones and island upgrades, block compacting with tiered armour, custom enchants, crates, spawner stacking. New hub. Chat filter and block logging switched on.</span></li>
     <li><time>19 Sep 2026</time><span>Server opened for testing. Java and Bedrock cross-play working, minions in, first island built.</span></li>
   </ul>
@@ -224,11 +232,13 @@
     <dt>Why was the server down?</dt>
     <dd>It runs at home. Restarts happen when something new goes in. Everyone gets a warning in chat and is kicked just before, so inventories save properly.</dd>
     <dt>My block or island is gone.</dt>
-    <dd>Say so. Backups run every few hours and the one block puts itself back if it disappears.</dd>
+    <dd>Say so. The world is backed up every six hours, and the one block puts itself back if it disappears.</dd>
     <dt>Which versions work?</dt>
     <dd>Java 26.2 and newer. Bedrock on the current version, from phone, console or Windows.</dd>
     <dt>Can I share an island with friends?</dt>
-    <dd>Yes, up to five people. <code>/ob team invite &lt;name&gt;</code> on your island.</dd>
+    <dd>Yes, five people to start and up to eight with the Co-op Size upgrade. <code>/ob team invite &lt;name&gt;</code> on your island.</dd>
+    <dt>It asked me to download a resource pack.</dt>
+    <dd>That's the Cubelune pack, about 17 KB, and it only holds the Prismatic textures. Without it Prismatic items look like plain amethyst and netherite. Bedrock doesn't get the pack yet, so the items look plain there.</dd>
     <dt>How do I get back to the hub?</dt>
     <dd><code>/spawn</code>. <code>/ob</code> takes you home again.</dd>
   </dl>
@@ -237,6 +247,6 @@
     <p>Cubelune is run by one person as a hobby. Not an official Minecraft product, not approved by or associated with Mojang or Microsoft.</p>
   </footer>
 </div>
-<script src="assets/app.js?v=5" defer></script>
+<script src="assets/app.js?v=6" defer></script>
 </body>
 </html>

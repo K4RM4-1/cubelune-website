@@ -5,7 +5,7 @@ document.querySelectorAll('button.copy').forEach(b=>b.addEventListener('click',a
   const j=await q('https://api.mcstatus.io/v2/status/java/play.cubelune.com');
   const b=await q('https://api.mcstatus.io/v2/status/bedrock/play.cubelune.com:32374');
   const on=(j&&j.online)||(b&&b.online);
-  if(on){const n=(j&&j.players&&j.players.online)||0;dot.className='dot on';s.textContent=`Online · ${n} player${n===1?'':'s'} on right now`;}
+  if(on){const n=(j&&j.online&&j.players?j.players.online:(b&&b.players?b.players.online:0))||0;dot.className='dot on';s.textContent=`Online · ${n} player${n===1?'':'s'} on right now`;}
   else{dot.className='dot off';s.textContent='Server unreachable right now';}
 })();
 
@@ -27,7 +27,7 @@ document.querySelectorAll('button.copy').forEach(b=>b.addEventListener('click',a
     $('meSub').textContent=(d.online?'online now':'last seen '+ago(d.lastSeen))+(d.islandOwner&&d.islandOwner!==d.name?" · on "+d.islandOwner+"'s island":'');
     const cards=[
       ['Rank',d.rank+(d.prestige?' · P'+d.prestige:'')],
-      ['Money',fmt(d.balance)],
+      ['Coins',fmt(d.balance)],
       ['Networth',fmt(d.networth)],
       ['Island level',fmt(d.islandLevel)],
       ['Moonstones',fmt(d.moonstones)],
@@ -48,7 +48,7 @@ document.querySelectorAll('button.copy').forEach(b=>b.addEventListener('click',a
     try{
       const r=await fetch('/api/player?name='+encodeURIComponent(name),{cache:'no-store'});
       const d=await r.json().catch(()=>({}));
-      if(!r.ok){showErr(d.error||'Something went wrong.');return false;}
+      if(!r.ok){showErr(d.error||(r.status>=500?'The game server is offline or restarting. Try again in a minute.':'Something went wrong.'));return false;}
       render(d); remember(d.name); return true;
     }catch(e){showErr('Could not reach the server right now. Try again in a minute.');return false;}
   }
